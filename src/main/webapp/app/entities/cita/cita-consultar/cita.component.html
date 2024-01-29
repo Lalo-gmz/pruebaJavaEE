@@ -1,0 +1,182 @@
+<div>
+  <h2 id="page-heading" data-cy="CitaHeading">
+    <span>Consultar Citas</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-cita"
+        [routerLink]="['/cita/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span>Crear nuevo Cita</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="mb-3">
+    <label for="doctorNombre" class="form-label">Nombre del Doctor</label>
+    <input
+      [(ngModel)]="doctor"
+      (change)="buscarPorNombreDoctor()"
+      type="text"
+      class="form-control"
+      id="doctorNombre"
+      aria-describedby="Nombre del Doctor"
+    />
+    <div id="emailHelp" class="form-text">Teclea el nombre del doctor.</div>
+  </div>
+
+  @if (citas?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span>Ningún Citas encontrado</span>
+    </div>
+  }
+
+  @if (citas && citas.length > 0) {
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-body">Citas para Hoy: {{ citasHoy }}</div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="card-body">Citas para Mañana: {{ citasManana }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span>ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="horarioConsultaInicio">
+              <div class="d-flex">
+                <span>Horario Consulta Inicio</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="horarioConsultaFin">
+              <div class="d-flex">
+                <span>Horario Consulta Fin</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="doctor.id">
+              <div class="d-flex">
+                <span>Doctor</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="consultorio.id">
+              <div class="d-flex">
+                <span>Consultorio</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="paciente.id">
+              <div class="d-flex">
+                <span>Paciente</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (cita of citas; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/cita', cita.id, 'view']">{{ cita.id }}</a>
+              </td>
+              <td>{{ cita.horarioConsultaInicio | formatMediumDatetime }}</td>
+              <td>{{ cita.horarioConsultaFin | formatMediumDatetime }}</td>
+              <td>
+                @if (cita.doctor) {
+                  <div>
+                    <a [routerLink]="['/doctor', cita.doctor.id, 'view']"
+                      >{{ cita.doctor.nombre }} {{ cita.doctor.apellidoPaterno }} {{ cita.doctor.apellidoMaterno }}</a
+                    >
+                  </div>
+                }
+              </td>
+              <td>
+                @if (cita.consultorio) {
+                  <div>
+                    <a [routerLink]="['/consultorio', cita.consultorio.id, 'view']"
+                      >{{ cita.consultorio.numero }}, {{ cita.consultorio.piso }}</a
+                    >
+                  </div>
+                }
+              </td>
+              <td>
+                @if (cita.paciente) {
+                  <div>
+                    <a [routerLink]="['/paciente', cita.paciente.id, 'view']">{{ cita.paciente.nombre }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/cita', cita.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline">Vista</span>
+                  </a>
+
+                  <a [routerLink]="['/cita', cita.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(cita)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline">Cancelar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (citas && citas.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

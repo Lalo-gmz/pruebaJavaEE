@@ -1,0 +1,38 @@
+{
+  "annotations": {
+    "changelogDate": "20240129170430"
+  },
+  "applications": "*",
+  "entityTableName": "doctor",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "apellidoPaterno",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "apellidoMaterno",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "especialidad",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Doctor",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "cita",
+      "otherEntityRelationshipName": "doctor",
+      "relationshipName": "cita",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

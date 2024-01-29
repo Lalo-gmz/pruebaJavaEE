@@ -1,0 +1,75 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-doctor-heading" data-cy="DoctorCreateUpdateHeading">Crear o editar Doctor</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_nombre">Nombre</label>
+          <input type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_apellidoPaterno">Apellido Paterno</label>
+          <input
+            type="text"
+            class="form-control"
+            name="apellidoPaterno"
+            id="field_apellidoPaterno"
+            data-cy="apellidoPaterno"
+            formControlName="apellidoPaterno"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_apellidoMaterno">Apellido Materno</label>
+          <input
+            type="text"
+            class="form-control"
+            name="apellidoMaterno"
+            id="field_apellidoMaterno"
+            data-cy="apellidoMaterno"
+            formControlName="apellidoMaterno"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_especialidad">Especialidad</label>
+          <input
+            type="text"
+            class="form-control"
+            name="especialidad"
+            id="field_especialidad"
+            data-cy="especialidad"
+            formControlName="especialidad"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

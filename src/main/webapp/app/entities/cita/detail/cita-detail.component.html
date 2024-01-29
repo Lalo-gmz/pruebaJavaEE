@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (cita) {
+      <div>
+        <h2 data-cy="citaDetailsHeading"><span>Cita</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>ID</span></dt>
+          <dd>
+            <span>{{ cita.id }}</span>
+          </dd>
+          <dt><span>Horario Consulta Inicio</span></dt>
+          <dd>
+            <span>{{ cita.horarioConsultaInicio | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Horario Consulta Fin</span></dt>
+          <dd>
+            <span>{{ cita.horarioConsultaFin | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Doctor</span></dt>
+          <dd>
+            @if (cita.doctor) {
+              <div>
+                <a [routerLink]="['/doctor', cita.doctor.id, 'view']">{{ cita.doctor.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span>Consultorio</span></dt>
+          <dd>
+            @if (cita.consultorio) {
+              <div>
+                <a [routerLink]="['/consultorio', cita.consultorio.id, 'view']">{{ cita.consultorio.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span>Paciente</span></dt>
+          <dd>
+            @if (cita.paciente) {
+              <div>
+                <a [routerLink]="['/paciente', cita.paciente.id, 'view']">{{ cita.paciente.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/cita', cita.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

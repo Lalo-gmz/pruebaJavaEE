@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (doctor) {
+      <div>
+        <h2 data-cy="doctorDetailsHeading"><span>Doctor</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>ID</span></dt>
+          <dd>
+            <span>{{ doctor.id }}</span>
+          </dd>
+          <dt><span>Nombre</span></dt>
+          <dd>
+            <span>{{ doctor.nombre }}</span>
+          </dd>
+          <dt><span>Apellido Paterno</span></dt>
+          <dd>
+            <span>{{ doctor.apellidoPaterno }}</span>
+          </dd>
+          <dt><span>Apellido Materno</span></dt>
+          <dd>
+            <span>{{ doctor.apellidoMaterno }}</span>
+          </dd>
+          <dt><span>Especialidad</span></dt>
+          <dd>
+            <span>{{ doctor.especialidad }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/doctor', doctor.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

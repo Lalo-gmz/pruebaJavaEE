@@ -1,0 +1,26 @@
+{
+  "annotations": {
+    "changelogDate": "20240129170530"
+  },
+  "applications": "*",
+  "entityTableName": "paciente",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Paciente",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "cita",
+      "otherEntityRelationshipName": "paciente",
+      "relationshipName": "cita",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

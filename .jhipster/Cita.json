@@ -1,0 +1,44 @@
+{
+  "annotations": {
+    "changelogDate": "20240129170730"
+  },
+  "applications": "*",
+  "entityTableName": "cita",
+  "fields": [
+    {
+      "fieldName": "horarioConsultaInicio",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "horarioConsultaFin",
+      "fieldType": "ZonedDateTime"
+    }
+  ],
+  "name": "Cita",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "doctor",
+      "otherEntityRelationshipName": "cita",
+      "relationshipName": "doctor",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "consultorio",
+      "otherEntityRelationshipName": "cita",
+      "relationshipName": "consultorio",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "paciente",
+      "otherEntityRelationshipName": "cita",
+      "relationshipName": "paciente",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

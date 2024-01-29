@@ -1,0 +1,33 @@
+
+
+entity Doctor {
+	nombre String
+    apellidoPaterno String
+    apellidoMaterno String
+    especialidad String
+}
+
+entity Paciente {
+	nombre String
+}
+
+entity Consultorio {
+	numero String
+    piso String
+}
+
+entity Cita {
+	horarioConsultaInicio ZonedDateTime
+    horarioConsultaFin ZonedDateTime
+}
+
+relationship OneToMany {
+	Doctor to Cita
+    Consultorio to Cita
+    Paciente to Cita
+}
+
+
+
+service * with serviceClass
+paginate * with pagination

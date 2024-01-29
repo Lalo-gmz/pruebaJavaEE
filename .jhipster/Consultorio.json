@@ -1,0 +1,30 @@
+{
+  "annotations": {
+    "changelogDate": "20240129170630"
+  },
+  "applications": "*",
+  "entityTableName": "consultorio",
+  "fields": [
+    {
+      "fieldName": "numero",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "piso",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Consultorio",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "cita",
+      "otherEntityRelationshipName": "consultorio",
+      "relationshipName": "cita",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}
